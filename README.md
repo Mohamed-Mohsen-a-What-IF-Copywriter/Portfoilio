@@ -16,13 +16,14 @@ Cases are `cases[] → sections[] → blocks[]`. Block types: `lead, sub, p, not
 
 ## Add the Himalaya video
 In `content.js`, find `t: 'video', src: ''` and paste either:
+- a Google Drive link (the file must be shared as "Anyone with the link"; it plays through Drive's own player),
 - a YouTube or Vimeo link (it is converted to the privacy-friendly `youtube-nocookie` / `vimeo ?dnt=1` embed), or
 - a self-hosted file, e.g. `src: 'himalaya-neem.mp4'` (upload it next to `index.html`; add `poster: 'poster.jpg'` if you like).
 
 Until `src` is filled, the video block is hidden.
 
-## Swap images
-The site uses no photos by design. To add one, use `<img src="..." alt="..." loading="lazy" width="..." height="...">`.
+## Images
+Pictures live in the `images/` folder and are declared at the top of `content.js` in the `IMG` list: `img('file.jpg', width, height, alt text, caption)`. Alt text describes the picture for screen readers; the caption shows under it. To add a picture: put the file in `images/` (lowercase, no spaces), add one line to `IMG`, then use it as `img: IMG.name` on a work item, `cover: IMG.name` on a work card, or `{ t: 'gallery', items: [IMG.name] }` inside a case. Clicking a picture opens a full-screen view with next/previous.
 - **OG image:** social sites need PNG/JPG. Export `og-image.svg` to a 1200×630 `og-image.png` (open in a browser/Figma/Canva and export), then set the real domain in the `og:` and `canonical` tags in `index.html`.
 
 ## PDF button

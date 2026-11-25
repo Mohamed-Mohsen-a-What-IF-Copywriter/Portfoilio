@@ -87,7 +87,9 @@
     }).join('');
 
     var works = S.work.map(function (w) {
-      return '<a class="work-card reveal" href="#/work/' + w.id + '"><span class="label">' + t(w.kind) + '</span>' +
+      return '<a class="work-card reveal" href="#/work/' + w.id + '">' +
+        (w.cover ? '<img class="cover" src="' + esc(w.cover.src) + '" width="' + w.cover.w + '" height="' + w.cover.h + '" alt="" loading="lazy" decoding="async">' : '') +
+        '<span class="label">' + t(w.kind) + '</span>' +
         el('h3', w.title, 'display') + el('p', w.teaser, 'teaser') + '</a>';
     }).join('');
 
@@ -144,7 +146,17 @@
     if (yt) return 'https://www.youtube-nocookie.com/embed/' + yt[1];
     var vm = src.match(/vimeo\.com\/(?:video\/)?(\d+)/);
     if (vm) return 'https://player.vimeo.com/video/' + vm[1] + '?dnt=1';
+    var dr = src.match(/drive\.google\.com\/file\/d\/([\w-]+)/);
+    if (dr) return 'https://drive.google.com/file/d/' + dr[1] + '/preview';
     return src;
+  }
+
+  // One picture with its caption. The button opens the lightbox (see "image lightbox" below).
+  function shot(i) {
+    var alt = pick(i.alt);
+    return '<figure class="shot"><button type="button" class="zoom" data-zoom="' + esc(i.src) + '" aria-label="' + ui('imgZoom') + '">' +
+      '<img src="' + esc(i.src) + '" width="' + i.w + '" height="' + i.h + '" alt="' + esc(alt ? alt.s : '') + '" loading="lazy" decoding="async"></button>' +
+      el('figcaption', i.cap) + '</figure>';
   }
 
   function block(b) {
@@ -214,9 +226,12 @@
           : '<iframe loading="lazy" src="' + esc(videoEmbed(b.src)) + '" title="' + esc(pick(b.caption).s) + '" allow="fullscreen; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>';
         h = '<figure class="video"><div class="frame">' + inner + '</div>' + el('figcaption', b.caption) + '</figure>';
         break;
+      case 'gallery':
+        h = '<div class="gallery' + (b.items.length === 1 ? ' single' : '') + '">' + b.items.map(shot).join('') + '</div>';
+        break;
       case 'copy':
         h = '<div class="copy-list">' + b.items.map(function (c) {
-          return '<article class="copy-item' + (c.wide ? ' wide' : '') + '">' + (c.k ? '<span class="label">' + t(c.k) + '</span>' : '') +
+          return '<article class="copy-item' + (c.wide ? ' wide' : '') + '">' + (c.img ? shot(c.img) : '') + (c.k ? '<span class="label">' + t(c.k) + '</span>' : '') +
             el('p', c.line, 'cl') + el('p', c.sub, 'cs') + el('p', c.body, 'cb') + '</article>';
         }).join('') + '</div>';
         break;
@@ -400,6 +415,51 @@
   });
 
   window.addEventListener('hashchange', function () { route(); });
+
+  /* ---------- image lightbox ---------- */
+  var dlg = document.createElement('dialog');
+  dlg.className = 'lightbox';
+  dlg.innerHTML = '<div class="lb-inner"><img class="lb-img" alt=""><p class="lb-cap"></p></div>' +
+    '<button type="button" class="lb-btn lb-close"><span aria-hidden="true">×</span></button>' +
+    '<button type="button" class="lb-btn lb-prev"><span class="lb-arr" aria-hidden="true">←</span></button>' +
+    '<button type="button" class="lb-btn lb-next"><span class="lb-arr" aria-hidden="true">→</span></button>';
+  document.body.appendChild(dlg);
+  var lbImg = dlg.querySelector('.lb-img'), lbCap = dlg.querySelector('.lb-cap');
+  var lbPrev = dlg.querySelector('.lb-prev'), lbNext = dlg.querySelector('.lb-next'), lbClose = dlg.querySelector('.lb-close');
+  var lbList = [], lbIdx = 0;
+
+  function lbShow(i) {
+    lbIdx = (i + lbList.length) % lbList.length;
+    var b = lbList[lbIdx], im = b.querySelector('img'), fc = b.parentNode.querySelector('figcaption');
+    lbImg.src = b.getAttribute('data-zoom');
+    lbImg.alt = im ? im.alt : '';
+    lbCap.textContent = fc ? fc.textContent : '';
+  }
+  function lbOpen(btn) {
+    lbList = Array.prototype.slice.call(main.querySelectorAll('[data-zoom]'));
+    lbClose.setAttribute('aria-label', pick(S.ui.imgClose).s);
+    lbPrev.setAttribute('aria-label', pick(S.ui.imgPrev).s);
+    lbNext.setAttribute('aria-label', pick(S.ui.imgNext).s);
+    lbPrev.hidden = lbNext.hidden = lbList.length < 2;
+    lbShow(lbList.indexOf(btn));
+    if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', '');
+  }
+  main.addEventListener('click', function (e) {
+    var b = e.target.closest && e.target.closest('[data-zoom]');
+    if (b) lbOpen(b);
+  });
+  dlg.addEventListener('click', function (e) {
+    if (e.target.closest('.lb-close')) { dlg.close(); return; }
+    if (e.target.closest('.lb-prev')) { lbShow(lbIdx - 1); return; }
+    if (e.target.closest('.lb-next')) { lbShow(lbIdx + 1); return; }
+    if (!e.target.closest('.lb-img, .lb-cap')) dlg.close();      // click on the dark area closes it
+  });
+  dlg.addEventListener('keydown', function (e) {
+    if (lbList.length < 2) return;
+    var rtl = document.documentElement.dir === 'rtl';
+    if (e.key === 'ArrowRight') lbShow(lbIdx + (rtl ? -1 : 1));
+    if (e.key === 'ArrowLeft') lbShow(lbIdx + (rtl ? 1 : -1));
+  });
 
   /* ---------- go ---------- */
   applyLang();

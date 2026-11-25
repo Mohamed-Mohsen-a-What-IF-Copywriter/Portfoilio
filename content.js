@@ -20,6 +20,55 @@
   var ar = function (s) { return { ar: s }; };
   var bi = function (e, a) { return { en: e, ar: a }; };
 
+  /* ---------- Images (files live in the images/ folder) ----------
+     img(file, width, height, alt text, caption). Alt text describes the picture for screen readers.
+     Captions are the tone-of-voice labels from your file names. Both are editable here. */
+  var img = function (f, w, h, alt, cap) { return { src: 'images/' + f, w: w, h: h, alt: alt, cap: cap }; };
+  var IMG = {
+    jamOoh: img('jamieson-ooh.jpg', 1000, 1000,
+      en('Night-time Jamieson billboard lit by a spotlight shaped like a pill, with the Arabic line “Here we needed something simple… and what do you need?”'),
+      en('Human, Helpful & Non-pushy · OOH billboard')),
+    ladGrid: img('ladyy-grid.jpg', 1000, 830,
+      en('Six-post Ladyy.com grid: a hand holding a phone beside a pink gift box, with the Arabic words “إيه..؟” and “أيوة!” across the tiles'),
+      en('Curious & Teasing · 6-post grid')),
+    ladCoffee: img('ladyy-coffee.jpg', 564, 750,
+      en('Ladyy Café post: a latte and a slice of cake on a table with the line “Cart full? Coffee first. Sip, think, decide.”'),
+      en('Calm & Thoughtful · Coffee break')),
+    ladSkin: img('ladyy-skin.jpg', 624, 834,
+      en('Ladyy.com post: a woman at a skin-analysis machine in the store with the line “Your skin is one of one”'),
+      en('Personal & Reassuring · Skincare')),
+    ladStore: img('ladyy-store.jpg', 624, 834,
+      en('Ladyy.com Black Friday post: a woman in the store beside a giant pink percent sign with the line “Smart shopping starts with you”'),
+      en('Smart & Consultative · Black Friday store')),
+    eveCollagen: img('eveline-collagen.jpg', 570, 762,
+      en('Eveline post: a woman holding a collagen serum bottle, with “3X Collagen Serum Shot”, “24K Gold” and an Arabic headline about collagen'),
+      en('Aspirational & Accessible · Collagen + 24K gold')),
+    eveNia: img('eveline-niacinamide.jpg', 570, 758,
+      en('Eveline post: a smiling woman holding a 5% niacinamide serum, with the Arabic headline “The weather is changing… but it won’t change your skin”'),
+      en('Human & Informative · Niacinamide')),
+    eveBtx: img('eveline-btx.jpg', 570, 762,
+      en('Eveline post: “Botox? No. Baby BTX. Yes.” beside a body balm serum and a multipeptides serum shot'),
+      en('Playful & Confident · Baby BTX')),
+    seifSchool: img('seif-backtoschool.jpg', 672, 897,
+      en('Seif Stores post: four children with backpacks beside a chalkboard reading “Back with enthusiasm”'),
+      en('Enthusiastic & Encouraging · Back to school')),
+    seifBackpack: img('seif-backpack.jpg', 672, 897,
+      en('Seif Stores post: a boy hanging up a Cars backpack, with the headline “Your child’s personality is in their bag”'),
+      en('Expressive & Child-centric · Backpack')),
+    seifLunch: img('seif-lunchbox.jpg', 672, 897,
+      en('Seif Stores post: a teal lunch box with sandwiches and grapes, with the headline “A lunch box that protects your child’s health”'),
+      en('Caring & Health-focused · Lunch box')),
+    seifReady: img('seif-readybag.jpg', 672, 897,
+      en('Seif Stores post: a hand pulling a pink lunch box out of an open school bag, with the headline “A ready bag that doesn’t leak”'),
+      en('Practical & Reassuring · Ready bag')),
+    seifBottle: img('seif-bottle.jpg', 672, 897,
+      en('Seif Stores post: a smiling boy holding a blue water bottle, with the headline “With them everywhere”'),
+      en('Warm & Caring · Water bottle')),
+    seifBranches: img('seif-branches.jpg', 672, 897,
+      en('Seif Stores post: a boy holding a red balloon pin whose string winds through a map of branch locations, with the headline “Our branches are everywhere”'),
+      en('Accessible & Supportive · Branches'))
+  };
+
   window.SITE = {
 
     /* ---------- Contact + links ---------- */
@@ -67,6 +116,10 @@
       statMonths: bi('months at Socialpeak', 'شهور في Socialpeak'),
       statBrands: bi('brands', 'براند'),
       langLabel: bi('Language', 'اللغة'),
+      imgZoom: bi('Enlarge image', 'تكبير الصورة'),                // Arabic DRAFT
+      imgClose: bi('Close', 'إغلاق'),                              // Arabic DRAFT
+      imgPrev: bi('Previous image', 'الصورة السابقة'),             // Arabic DRAFT
+      imgNext: bi('Next image', 'الصورة التالية'),                 // Arabic DRAFT
       secBrief: bi('Brief', 'البريف'),
       secInsight: bi('Insight', 'الإنسايت'),
       secStrategy: bi('Strategy', 'الاستراتيجية'),
@@ -212,6 +265,7 @@
             { t: 'lines', label: en('Product lines = SEO'), items: [ar('بيغطي احتياجك من الزنك.. وبس'), ar('بيكمل احتياجك من الماغنسيوم.. وبس')] },
             { t: 'lead', x: en('The light is the pill. The shield draws the line.') },
             { t: 'p', x: ar('الإضاءة هي اللي بتعمل شكل الحباية (زي أقواس ماكدونالدز)، ولمبتين من فوق ومن تحت. والشفرة المعدنية في النص بتقفل تداخل الضوء وبتعمل خط الحباية.') },
+            { t: 'gallery', items: [IMG.jamOoh] },
             { t: 'cards', accent: true, items: [
               { k: en('The line'), x: ar('هنا كنا محتاجين حاجة بسيطة.. وانت احتياجك إيه؟') }
             ] },
@@ -248,7 +302,8 @@
           ] },
           { key: 'idea', blocks: [
             { t: 'lead', x: en('A grid that asks. A reel that answers.') },
-            { t: 'p', x: ar('6 بوستات بتكوّن صورة واحدة. الهيرو كلمة «إيه..؟» وفوقها كلمة صغيرة (تفتكروا / طب) والكابشن بيكمل السؤال. اللي يشوف الجريد من بره يقرا: إيه.. إيه.. إيه..إيه.. ثم «أيوة!».') }
+            { t: 'p', x: ar('6 بوستات بتكوّن صورة واحدة. الهيرو كلمة «إيه..؟» وفوقها كلمة صغيرة (تفتكروا / طب) والكابشن بيكمل السؤال. اللي يشوف الجريد من بره يقرا: إيه.. إيه.. إيه..إيه.. ثم «أيوة!».') },
+            { t: 'gallery', items: [IMG.ladGrid] }
           ] },
           { key: 'execution', blocks: [
             { t: 'posts', items: [
@@ -314,8 +369,8 @@
             ] }
           ] },
           { key: 'execution', blocks: [
-            // Paste your embed or file URL into src to show the film. See README.
-            { t: 'video', src: '', poster: '', caption: en('Himalaya Purifying Neem Face Wash · 43s storytelling film') },
+            // Film: Google Drive link (file must be shared as "Anyone with the link"). YouTube/Vimeo/mp4 links also work.
+            { t: 'video', src: 'https://drive.google.com/file/d/1JZsIXyLZu465hCtcAUTvfsMCGJeuAXjg/view?usp=sharing', poster: '', caption: en('Himalaya Purifying Neem Face Wash · 43s storytelling film') },
             { t: 'lead', x: en('Six beats. One feeling.') },
             { t: 'steps', items: [
               { n: '01', k: en('The Spot'),    x: ar('ظهرت حباية.') },
@@ -338,50 +393,53 @@
     work: [
       {
         id: 'eveline',
+        cover: IMG.eveCollagen,
         kind: en('Technical copywriting · Eveline Skin'),
         title: en('Exact claims. A human voice.'),
         teaser: ar('«الجو بيتغير..؟ بس مش هيغير بشرتك»'),
         items: [
-          { k: en('Niacinamide 5%'), line: ar('«الجو بيتغير..؟ بس مش هيغير بشرتك»'), sub: ar('بشرتك بتتأثر بتغيير الجو؟'),
+          { k: en('Niacinamide 5%'), img: IMG.eveNia, line: ar('«الجو بيتغير..؟ بس مش هيغير بشرتك»'), sub: ar('بشرتك بتتأثر بتغيير الجو؟'),
             body: ar('تغير درجات الحرارة والرطوبة بيأثر على إفراز الدهون وترطيب البشرة، وهنا دور الـ Niacinamide في تنظيم الدهون، وتقليل مظهر المسام الواسعة.') },
-          { k: en('Multi-peptides'), line: ar('«Botox؟ لأ. Baby BTX. أيوة»'), sub: en('Baby BTX? Meet your best duo.'),
+          { k: en('Multi-peptides'), img: IMG.eveBtx, line: ar('«Botox؟ لأ. Baby BTX. أيوة»'), sub: en('Baby BTX? Meet your best duo.'),
             body: ar('كريم للوجه وبلسم سيروم للجسم، بتركيبة الببتيدات للعناية بنعومة البشرة ومرونتها، لمظهر مشرق وأكثر تماسك.') },
-          { k: en('Collagen + 24K gold'), line: ar('«الكولاجين مش رفاهية.. ده سر تماسك بشرتك»'), sub: ar('كولاجين ودهب عيار 24؟'),
+          { k: en('Collagen + 24K gold'), img: IMG.eveCollagen, line: ar('«الكولاجين مش رفاهية.. ده سر تماسك بشرتك»'), sub: ar('كولاجين ودهب عيار 24؟'),
             body: ar('يبقى وصلتي لسر إشراقة بشرتك. سيروم إيفلين بالكولاجين والإيلاستين وذهب عيار 24، يخليكي توصلي لبشرة ناعمة، مرنة ومشرقة.') }
         ]
       },
       {
         id: 'seif',
+        cover: IMG.seifBackpack,
         kind: en('Retail & e-commerce copy · Seif Stores'),
         title: en('A lunch box is never just a lunch box.'),
         teaser: ar('«شخصية طفلك في شنطته»'),
         items: [
-          { line: ar('«راجعين بحماس.. ارفعي حماسهم بمستلزمات المدرسة»'),
+          { img: IMG.seifSchool, line: ar('«راجعين بحماس.. ارفعي حماسهم بمستلزمات المدرسة»'),
             body: ar('عارفة إن تجهيز مستلزمات الدراسة ممكن يكون أول خطوة في تجهيز طفلك؟ لما تشركيه في اختيار شنطته وأدواته، بيدخل في الـ mood ويتحمس أكتر لبداية السنة.') },
-          { line: ar('«شخصية طفلك في شنطته»'),
+          { img: IMG.seifBackpack, line: ar('«شخصية طفلك في شنطته»'),
             body: ar('تعرفي إن شنطة طفلك بتحكي كتير عن شخصيته؟ اختياره للون أو الشكل اللي بيحبه هو طريقته في التعبير عن نفسه. سيبيه يختار، وإنتي ساعديه يلاقي اللي يجمع بين الشكل والعملية.') },
-          { line: ar('«لانش بوكس يحافظ على صحة طفلك»'),
+          { img: IMG.seifLunch, line: ar('«لانش بوكس يحافظ على صحة طفلك»'),
             body: ar('ليه بتعملي أكل صحي لطفلك… طالما اللانش بوكس هيبوظه؟ اختاري لانش بوكس عملي سهل الاستخدام، عشان الأكل اللي بتحضريه بحب يوصله زي ما حضرتيه.') },
-          { line: ar('«شنطة جاهزة متخرش المية»'),
+          { img: IMG.seifReady, line: ar('«شنطة جاهزة متخرش المية»'),
             body: ar('مينفعش الدراسة تبدأ وشنط أولادك لسه مكملتش. جمعنالك كل مستلزمات المدرسة في مكان واحد: شنط، لانش بوكس، bottles، أدوات مدرسية.') },
-          { line: ar('«معاه في كل حتة»'),
+          { img: IMG.seifBottle, line: ar('«معاه في كل حتة»'),
             body: ar('بوتل طفلك معاه في كل مشوار، من أول يوم مدرسة لحد النادي والخروجات. خلي المية دايمًا قريبة منه.') },
-          { line: ar('«فروعنا مستنياكي في كل حتة عشان راحتك انتي وطفلك»'),
+          { img: IMG.seifBranches, line: ar('«فروعنا مستنياكي في كل حتة عشان راحتك انتي وطفلك»'),
             sub: ar('📍 من أول خيط… لحد أقرب فرع ليك ❤'),     // emoji kept: it is part of the supplied copy
             body: ar('فين ما كنتي هتلاقينا أقرب ليكي مما تتخيلي\n\nامشي ورا الخيط واعرفي أقرب فرع ليك 👀📍') }
         ]
       },
       {
         id: 'blackfriday',
+        cover: IMG.ladStore,
         kind: en('Campaign content · Ladyy Black Friday'),
         title: en('A month of Black Friday without the noise.'),
         teaser: ar('«تعرفي الأول، تشتري بعدين»'),
         items: [
-          { k: en('Know first, shop smart'), line: ar('«تعرفي الأول، تشتري بعدين»'),
+          { k: en('Know first, shop smart'), img: IMG.ladStore, line: ar('«تعرفي الأول، تشتري بعدين»'),
             body: ar('أذكى شوبينج في الـ Black Friday: اعملي تحليل لبشرتك وشعرك عندنا في Ladyy.com، واطلعي بقايمة منتجات على قد احتياجك مش على قد الـ hype.') },
-          { k: en('Cart full? Coffee first'), line: ar('«بين الكارت والـ checkout… فنجان قهوة»'),
+          { k: en('Cart full? Coffee first'), img: IMG.ladCoffee, line: ar('«بين الكارت والـ checkout… فنجان قهوة»'),
             body: ar('فكّري براحتك واختاري اللي يستاهل بجد. Think it over, over coffee.') },
-          { k: en('POV'), line: ar('«بشرتك مش زي بشرة صاحبتك…ليه تستخدمي نفس روتينها؟»'),
+          { k: en('POV'), img: IMG.ladSkin, line: ar('«بشرتك مش زي بشرة صاحبتك…ليه تستخدمي نفس روتينها؟»'),
             body: ar('تحليل البشرة عندنا بيساعدك تفهمي بشرتك الأول، وبعدها تختاري عنايتك بثقة.') }
         ]
       },
