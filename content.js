@@ -369,8 +369,8 @@
             ] }
           ] },
           { key: 'execution', blocks: [
-            // Film: Google Drive link (file must be shared as "Anyone with the link"). YouTube/Vimeo/mp4 links also work.
-            { t: 'video', src: 'https://drive.google.com/file/d/1JZsIXyLZu465hCtcAUTvfsMCGJeuAXjg/view?usp=sharing', poster: '', caption: en('Himalaya Purifying Neem Face Wash · 43s storytelling film') },
+            // Paste your embed or file URL into src to show the film. See README.
+            { t: 'video', src: '', poster: '', caption: en('Himalaya Purifying Neem Face Wash · 43s storytelling film') },
             { t: 'lead', x: en('Six beats. One feeling.') },
             { t: 'steps', items: [
               { n: '01', k: en('The Spot'),    x: ar('ظهرت حباية.') },
