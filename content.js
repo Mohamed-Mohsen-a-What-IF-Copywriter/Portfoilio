@@ -79,7 +79,7 @@
     linkedinLabel: 'linkedin.com/in/mohamed-mohsen-copywriter',
     // Swap for a self-hosted file (e.g. 'mohamed-mohsen-portfolio.pdf') once you export one.
     // This default exports the Google Slides deck as a PDF (works while the deck is link-viewable).
-    pdf: 'Mohamed Mohsen_Copywriter_Portfolio.pdf'
+    pdf: 'Mohamed Mohsen_Copywriter_Portfolio .pdf',
 
     /* ---------- SEO (also edit the static tags in index.html) ---------- */
     seo: {
