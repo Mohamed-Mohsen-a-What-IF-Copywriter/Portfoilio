@@ -16,6 +16,7 @@ Cases are `cases[] → sections[] → blocks[]`. Block types: `lead, sub, p, not
 
 ## Add the Himalaya video
 In `content.js`, find `t: 'video', src: ''` and paste either:
+- a Google Drive link (the file must be shared as "Anyone with the link"; it plays through Drive's own player),
 - a YouTube or Vimeo link (it is converted to the privacy-friendly `youtube-nocookie` / `vimeo ?dnt=1` embed), or
 - a self-hosted file, e.g. `src: 'himalaya-neem.mp4'` (upload it next to `index.html`; add `poster: 'poster.jpg'` if you like).
 
