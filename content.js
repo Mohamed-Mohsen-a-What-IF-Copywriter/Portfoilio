@@ -445,6 +445,7 @@
       },
       {
         id: 'takeoff',
+        cover: { src: 'images/youlicious-takeoff-cover.gif', w: 256, h: 320 },
         kind: en('Trend adaptation · Takeoff & 80s trend'),
         title: en('Takeoff trend. Many voices.'),
         teaser: ar('«شعرك هيفضل طاير»'),
