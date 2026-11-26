@@ -453,7 +453,7 @@
         tags: [en('Youlicious'), en('Blendit'), en('Ladyy Café'), en('Eveline Makeup'), en('Eveline Skin'), en('Cosmoshop')],
         itemsTitle: en('Same takeoff. Three brands.'),
         items: [
-          { k: en('Youlicious'), media: { type: 'video', src: 'images/youlicious-takeoff.gif' }, line: ar('«شعرك هيفضل طاير»'),
+          { k: en('Youlicious'), media: { type: 'image', src: 'images/youlicious-takeoff.gif', alt: 'Youlicious Takeoff trend animation' }, line: ar('«شعرك هيفضل طاير»'),
             body: ar('رشة واحدة وشعرك يبقى فلافي، فريش، وطاير. Youlicious Dry Shampoo، انتعاش وفوليوم لشعرك في ثواني.') },
           { k: en('Blendit'), media: { type: 'image', src: 'images/takeoff-cup.gif', alt: 'BLENDiT takeoff trend: a cup accelerating down a city highway' }, line: en('Take a sip & Take off.'),
             body: en('Some sips just hit different. Your BLENDiT moment = instant lift-off.') },

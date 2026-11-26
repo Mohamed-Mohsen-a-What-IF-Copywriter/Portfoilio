@@ -231,9 +231,12 @@
         break;
       case 'copy':
         h = '<div class="copy-list">' + b.items.map(function (c) {
-          var media = c.media ? (c.media.type === 'video'
-            ? '<video class="copy-media" controls playsinline preload="metadata"><source src="' + esc(c.media.src) + '" type="video/mp4"></video>'
-            : '<img class="copy-media" src="' + esc(c.media.src) + '" alt="' + esc(c.media.alt || '') + '" loading="lazy">') : '';
+          var media = '';
+          if (c.media && c.media.src) {
+            media = c.media.type === 'video'
+              ? '<video class="copy-media" controls playsinline preload="metadata"><source src="' + esc(c.media.src) + '" type="video/mp4"></video>'
+              : '<img class="copy-media" src="' + esc(c.media.src) + '" alt="' + esc(c.media.alt || '') + '" loading="lazy" decoding="async">';
+          }
           return '<article class="copy-item' + (c.wide ? ' wide' : '') + '">' + (c.img ? shot(c.img) : '') + media + (c.k ? '<span class="label">' + t(c.k) + '</span>' : '') +
             el('p', c.line, 'cl') + el('p', c.sub, 'cs') + el('p', c.body, 'cb') + '</article>';
         }).join('') + '</div>';
