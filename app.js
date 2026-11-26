@@ -146,6 +146,8 @@
     if (yt) return 'https://www.youtube-nocookie.com/embed/' + yt[1];
     var vm = src.match(/vimeo\.com\/(?:video\/)?(\d+)/);
     if (vm) return 'https://player.vimeo.com/video/' + vm[1] + '?dnt=1';
+    var dr = src.match(/drive\.google\.com\/file\/d\/([\w-]+)/);
+    if (dr) return 'https://drive.google.com/file/d/' + dr[1] + '/preview';
     return src;
   }
 
